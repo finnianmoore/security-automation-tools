@@ -11,16 +11,16 @@ These tools were developed during practical security assessments and demonstrate
 | Tool | Language | Purpose |
 | :--- | :--- | :--- |
 | OSINT Wordlist Generator | Python | Generates targeted, context-aware password wordlists based on OSINT data |
-| Pasta Wordlist Generator | Python | Creates focused wordlists using company-specific terminology |
+| Targeted Wordlist Generator | Python | Creates focused wordlists using company-specific terminology |
 | Web Login Bruteforcer | Python | Multi-threaded credential spraying against web login forms |
-| iRedAdmin Credential Spray | Python | Refined credential spraying tool with progress tracking and rate limiting |
+| Credential Spray with Progress | Python | Refined credential spraying tool with progress tracking and rate limiting |
 | Credential Spray Automation | Bash | Automates credential spraying using ffuf with multiple wordlists |
 
 ---
 
 ## Tools
 
-### 1. OSINT Wordlist Generator (`wordlist-generator/massive_tpm_gen.py`)
+### 1. OSINT Wordlist Generator (`wordlist-generator/osint-wordlist-generator.py`)
 
 Generates a massive, targeted wordlist using OSINT-derived keywords.
 
@@ -31,30 +31,30 @@ Generates a massive, targeted wordlist using OSINT-derived keywords.
 - Outputs approximately 350,000+ password candidates
 
 **Usage:**
-python3 massive_tpm_gen.py
+python3 osint-wordlist-generator.py
 
 **Output:** massive_tpm_list.txt
 
 ---
 
-### 2. Pasta Wordlist Generator (`wordlist-generator/pasta_gen.py`)
+### 2. Targeted Wordlist Generator (`wordlist-generator/targeted-wordlist-generator.py`)
 
 A focused wordlist generator using specific company terminology.
 
 **Key Features:**
-- Uses company-specific pasta names, employee names, and phrases
+- Uses company-specific names, phrases, and roles
 - Applies leetspeak transformations
 - Adds year and symbol variations
 - Deduplicates output for efficiency
 
 **Usage:**
-python3 pasta_gen.py
+python3 targeted-wordlist-generator.py
 
 **Output:** ultimate_pasta.txt
 
 ---
 
-### 3. Web Login Bruteforcer (`credential-spray/brute_iredadmin.py`)
+### 3. Web Login Bruteforcer (`credential-spray/web-login-bruteforcer.py`)
 
 A multi-threaded credential spraying tool for web login forms.
 
@@ -65,17 +65,17 @@ A multi-threaded credential spraying tool for web login forms.
 - Handles SSL certificate warnings gracefully
 
 **Usage:**
-python3 brute_iredadmin.py
+python3 web-login-bruteforcer.py
 
 **Requirements:**
 - master_usernames.txt (list of usernames, one per line)
-- roe_filtered_compliant.txt (list of passwords, one per line)
+- passwords.txt (list of passwords, one per line)
 
 **Output:** WINNER.txt (username:password)
 
 ---
 
-### 4. iRedAdmin Credential Spray (`credential-spray/iredadmin_final.py`)
+### 4. Credential Spray with Progress (`credential-spray/credential-spray-progress.py`)
 
 A refined credential spraying tool with progress tracking and rate limiting.
 
@@ -86,17 +86,17 @@ A refined credential spraying tool with progress tracking and rate limiting.
 - Clear success/failure detection
 
 **Usage:**
-python3 iredadmin_final.py
+python3 credential-spray-progress.py
 
 **Requirements:**
 - users.txt (list of usernames, one per line)
 - Wordlist files (e.g., seasons.txt, months.txt, days.txt)
 
-**Output:** iredadmin_real_credentials.txt
+**Output:** credentials_found.txt
 
 ---
 
-### 5. Credential Spray Automation (`automation-scripts/sweep.sh`)
+### 5. Credential Spray Automation (`automation-scripts/credential-spray-automation.sh`)
 
 A Bash script that automates credential spraying using ffuf.
 
@@ -106,12 +106,12 @@ A Bash script that automates credential spraying using ffuf.
 - Saves successful hits to a results file
 
 **Usage:**
-./sweep.sh
+./credential-spray-automation.sh
 
 **Requirements:**
 - ffuf installed
-- overnight_targets.txt (list of usernames)
-- Wordlist files in ROE-wordlists/ directory
+- targets.txt (list of usernames)
+- Wordlist files in a wordlists/ directory
 
 **Output:** WINNER.txt
 
@@ -125,7 +125,7 @@ git clone https://github.com/finnianmoore/security-automation-tools.git
 cd security-automation-tools
 
 **Python Dependencies:**
-pip install requests concurrent.futures urllib3
+pip install requests
 
 **Bash Dependencies:**
 sudo apt install ffuf
